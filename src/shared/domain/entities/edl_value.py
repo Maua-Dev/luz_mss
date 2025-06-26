@@ -5,6 +5,7 @@ class Edl_Value():
     b_section: float
     h_height: float
     p_reflectance: float
+    edl_id: int
 
     def __init__ (self, b_section: float, h_height: float, p_reflectance: float):
         if not self.validate_b(b_section):
@@ -19,6 +20,15 @@ class Edl_Value():
             raise EntityError("p_reflectance")
         self.p_reflectance = p_reflectance
         
+        if type(edl_id) == int
+            if edl_id < 0:
+                raise EntityError("edl_id")
+
+        if type(edl_id) != int and edl_id is not None:
+            raise EntityError("edl_id")
+
+        self.edl_id = edl_id
+
     @staticmethod
     def validate_b(b_section: float) -> bool:
         if b_section is None:

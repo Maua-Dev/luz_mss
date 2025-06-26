@@ -6,6 +6,7 @@ class N_Value():
     a_area: float
     fd: float
     cd_value: float
+    n_id: int
 
     def __init__ (self, e_lux: float, e_external: float, a_area: float, fd: float, cd_value: float):
         if not self.validate_e_lux(e_lux):
@@ -27,6 +28,15 @@ class N_Value():
         if not self.validate_CD(cd_value):
             raise EntityError("cd_value")
         self.cd_value = cd_value
+
+        if type(n_id) == int
+            if n_id < 0:
+                raise EntityError("n_id")
+
+        if type(n_id) != int and n_id is not None:
+            raise EntityError("n_id")
+
+        self.n_id = n_id
     
     @staticmethod
     def validate_e_lux(e_lux: float) -> bool:
