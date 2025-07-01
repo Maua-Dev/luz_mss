@@ -8,7 +8,7 @@ class N_Value():
     cd_value: float
     n_id: int
 
-    def __init__ (self, e_lux: float, e_external: float, a_area: float, fd: float, cd_value: float):
+    def __init__ (self, e_lux: float, e_external: float, a_area: float, fd: float, cd_value: float, n_id: int = None):
         if not self.validate_e_lux(e_lux):
             raise EntityError("e_lux")
         self.e_lux = e_lux

@@ -7,7 +7,7 @@ class Edl_Value():
     p_reflectance: float
     edl_id: int
 
-    def __init__ (self, b_section: float, h_height: float, p_reflectance: float):
+    def __init__ (self, b_section: float, h_height: float, p_reflectance: float, edl_id: int = None):
         if not self.validate_b(b_section):
             raise EntityError("b_section")
         self.b_section = b_section
