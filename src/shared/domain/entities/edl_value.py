@@ -20,11 +20,11 @@ class Edl_Value():
             raise EntityError("p_reflectance")
         self.p_reflectance = p_reflectance
         
-        if type(edl_id) == int
+        if type(edl_id) == int:
             if edl_id < 0:
                 raise EntityError("edl_id")
 
-        if type(edl_id) != int and edl_id is not None:
+        if type(edl_id) != int:
             raise EntityError("edl_id")
 
         self.edl_id = edl_id
