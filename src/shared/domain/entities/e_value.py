@@ -1,27 +1,22 @@
 from src.shared.helpers.errors.domain_errors import EntityError
 
-class N_Value():
+class E_Value():
+    n_value: int
     edl_prcnt: float
-    b_section: float
-    e_lux: int
     e_external: float
     a_area: float
     fd_value: float
     CD_VALUE: int = 3
-    n_id: int
+    e_id: int
 
-    def __init__ (self, edl_prcnt: float, b_section: float, e_lux: int, e_external: float, a_area: float, fd_value: float, n_id: int = None):
+    def __init__(self, n_value: int, edl_prcnt: float, e_external: float, a_area: float, fd_value: float, e_id: int = None):
+        if not self.validate_n_value(n_value):
+            raise EntityError("n_value")
+        self.n_value = n_value
+
         if not self.validate_edl_prcnt(edl_prcnt):
             raise EntityError("edl_prcnt")
         self.edl_prcnt = edl_prcnt
-
-        if not self.validate_b_section(b_section):
-            raise EntityError("b_section")
-        self.b_section = b_section
-
-        if not self.validate_e_lux(e_lux):
-            raise EntityError("e_lux")
-        self.e_lux = e_lux
 
         if not self.validate_e_external(e_external):
             raise EntityError("e_external")
@@ -35,15 +30,23 @@ class N_Value():
             raise EntityError("fd_value")
         self.fd_value = fd_value
 
-        if type(n_id) == int:
-            if n_id < 0:
-                raise EntityError("n_id")
+        if type(e_id) == int:
+            if e_id < 0:
+                raise EntityError("e_id")
 
-        if type(n_id) != int:
-            print("n_id must be an integer")
+        if type(e_id) != int:
+            print("e_id must be an integer")
 
-        self.n_id = n_id
-    
+        self.e_id = e_id
+
+    @staticmethod
+    def validate_n_value(n_value: int) -> bool:
+        if n_value is None:
+            return False
+        elif type(n_value) != int:
+            return False
+        return True
+
     @staticmethod
     def validate_edl_prcnt(edl_prcnt: float) -> bool:
         if edl_prcnt is None:
@@ -53,23 +56,7 @@ class N_Value():
         elif edl_prcnt < 0 or edl_prcnt > 100:
             return False
         return True
-    
-    @staticmethod
-    def validate_b_section(b_section: float) -> bool:
-        if b_section is None:
-            return False
-        elif type(b_section) != float:
-            return False
-        return True
 
-    @staticmethod
-    def validate_e_lux(e_lux: int) -> bool:
-        if e_lux is None:
-            return False
-        elif type(e_lux) != int:
-            return False
-        return True
-    
     @staticmethod
     def validate_e_external(e_external: float) -> bool:
         if e_external is None:
@@ -95,13 +82,13 @@ class N_Value():
         elif fd_value == 0:
             return False
         return True
-    
-    def calculate_n(self) -> int:        
-        edl_lux = (self.edl_prcnt * self.e_external) / 100
-        duct = edl_lux * (self.b_section**2)
 
-        if duct == 0 or self.fd_value == 0:
-            return 0
+def calculate_e(self) -> float:
+    edl_lux = (self.edl_prcnt * self.e_external) / 100
+    duct = edl_lux * (self.b_section**2)
 
-        n = round((self.e_lux * self.a_area) / (duct * self.CD_VALUE * self.fd_value))
-        return n
+    if duct == 0 or self.fd_value == 0:
+        return 0
+
+    e = (self.n_value * duct * self.CD_VALUE * self.fd_value) / self.a_area
+    return e

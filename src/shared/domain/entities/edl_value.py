@@ -25,7 +25,7 @@ class Edl_Value():
                 raise EntityError("edl_id")
 
         if type(edl_id) != int:
-            raise EntityError("edl_id")
+            print("edl_id must be an integer")
 
         self.edl_id = edl_id
 
