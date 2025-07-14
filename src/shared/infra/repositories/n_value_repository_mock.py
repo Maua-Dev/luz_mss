@@ -1,15 +1,20 @@
 from src.shared.domain.entities.n_value import N_Value
 from src.shared.helpers.errors.usecase_errors import NoItemsFound
 from src.shared.domain.repositories.n_value_repository_interface import INValueRepository
-from src.shared.infra.repositories.edl_value_repository_mock import EdlValueRepositoryMock
 
 class NValueRepositoryMock(INValueRepository):
-    b_section = EdlValueRepositoryMock.calculate_edl.b_section
-    edl_prcnt = EdlValueRepositoryMock.get_edl_value()
-    calculate_n: float
+    def __init__(self, n_value: N_Value = None):
+        self._n_values_db = {} # Simulates a database
+        if n_value:
+            self._n_values_db[n_value.n_id] = n_value
 
-    def __init__(self):
-        self._mock_n_value = N_Value(e_lux=200.0, e_external=20000.0, a_area=544.0, fd=0.7)
+    def save_edl_value(self, n_value: N_Value) -> N_Value:
+        if n_value.n_id in self._n_values_db:
+            raise ValueError("Já existe um valor N com este ID!")
+        self._n_values_db[n_value.n_id] = n_value
+        return n_value
 
-    def get_n_parameters(self) -> N_Value:
-        return self._mock_n_value
+    def get_n_value_by_id(self, n_id: int) -> N_Value:
+        if n_id not in self._n_values_db:
+            raise NoItemsFound(f"Nenhum valor N encontrado com o ID {n_id}.")
+        return self._n_values_db.get(n_id)

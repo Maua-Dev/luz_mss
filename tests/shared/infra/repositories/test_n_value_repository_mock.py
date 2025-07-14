@@ -4,31 +4,14 @@ from src.shared.infra.repositories.n_value_repository_mock import NValueReposito
 import pytest
 
 class Test_NValueRepositoryMock:
-    def test_n_repository_mock(self):
-        custom_e_lux = 100.0
-        custom_e_external = 10000
-        custom_a_area = 400
-        custom_fd = 1.0
+    def test_save_n_value(self):
+        n_value = N_Value(n_id=1, edl_prcnt=66.0, b_section=0.9, e_lux=200.0, e_external=20000.0, a_area=544.0, fd=0.7, cd_value=3.0)
+        repo = NValueRepositoryMock()
+        saved_value = repo.save_edl_value(n_value)
+        assert saved_value == n_value
 
-        n_repo_mock = NValueRepositoryMock(
-            e_lux = custom_e_lux,
-            e_external = custom_e_external,
-            a_area = custom_a_area,
-            fd = custom_fd
-        )
-
-        retrieved_n_entity = n_repo_mock.get_n_parameters()
-
-        assert retrieved_n_entity.e_lux == custom_e_lux
-        assert retrieved_n_entity.e_external == custom_e_external
-        assert retrieved_n_entity.a_area == custom_a_area
-        assert retrieved_n_entity.fd == custom_fd
-
-    def test_n_repository_mock_default_parameters(self):
-        n_repo_mock = nValueRepositoryMock()
-        retrieved_n_entity = n_repo_mock.get_n_parameters()
-        
-        assert retrieved_n_entity.e_lux == 200.0
-        assert retrieved_n_entity.h_height == 20000.0
-        assert retrieved_n_entity.a_area == 544.0
-        assert retrieved_n_entity.fd == 0.7
+    def test_get_n_value_by_id(self):
+        n_value = N_Value(n_id=1,  edl_prcnt=66.0, b_section=0.9, e_lux=200.0, e_external=20000.0, a_area=544.0, fd=0.7, cd_value=3.0)
+        repo = NValueRepositoryMock(n_value)
+        retrieved_value = repo.get_n_value_by_id(1)
+        assert retrieved_value == n_value
