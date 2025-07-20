@@ -1,3 +1,4 @@
+import uuid
 from src.shared.helpers.errors.domain_errors import EntityError
 
 class E_Value():
@@ -7,9 +8,9 @@ class E_Value():
     a_area: float
     fd_value: float
     CD_VALUE: int = 3
-    e_id: int
+    e_id: str
 
-    def __init__(self, n_value: int, edl_prcnt: float, e_external: float, a_area: float, fd_value: float, e_id: int = None):
+    def __init__(self, n_value: int, edl_prcnt: float, e_external: float, a_area: float, fd_value: float, e_id: str = None):
         if not self.validate_n_value(n_value):
             raise EntityError("n_value")
         self.n_value = n_value
@@ -30,13 +31,8 @@ class E_Value():
             raise EntityError("fd_value")
         self.fd_value = fd_value
 
-        if type(e_id) == int:
-            if e_id < 0:
-                raise EntityError("e_id")
-
-        if type(e_id) != int:
-            print("e_id must be an integer")
-
+        if not self.validate_e_id(e_id):
+            raise EntityError("e_id")
         self.e_id = e_id
 
     @staticmethod
@@ -80,6 +76,16 @@ class E_Value():
         elif type(fd_value) != float:
             return False
         elif fd_value == 0:
+            return False
+        return True
+
+    @staticmethod
+    def validate_e_id(e_id: str) -> bool:
+        if not isinstance(e_id, str):
+            return False
+        try:
+            val = uuid.UUID(e_id, version=4)
+        except ValueError:
             return False
         return True
 

@@ -1,3 +1,4 @@
+import uuid
 from src.shared.helpers.errors.domain_errors import EntityError
 
 class N_Value():
@@ -8,9 +9,9 @@ class N_Value():
     a_area: float
     fd_value: float
     CD_VALUE: int = 3
-    n_id: int
+    n_id: str
 
-    def __init__ (self, edl_prcnt: float, b_section: float, e_lux: int, e_external: float, a_area: float, fd_value: float, n_id: int = None):
+    def __init__ (self, edl_prcnt: float, b_section: float, e_lux: int, e_external: float, a_area: float, fd_value: float, n_id: str = None):
         if not self.validate_edl_prcnt(edl_prcnt):
             raise EntityError("edl_prcnt")
         self.edl_prcnt = edl_prcnt
@@ -35,13 +36,8 @@ class N_Value():
             raise EntityError("fd_value")
         self.fd_value = fd_value
 
-        if type(n_id) == int:
-            if n_id < 0:
-                raise EntityError("n_id")
-
-        if type(n_id) != int:
-            print("n_id must be an integer")
-
+        if not self.validate_n_id(n_id):
+            raise EntityError("n_id")
         self.n_id = n_id
     
     @staticmethod
@@ -93,6 +89,16 @@ class N_Value():
         elif type(fd_value) != float:
             return False
         elif fd_value == 0:
+            return False
+        return True
+
+    @staticmethod
+    def validate_n_id(n_id: str) -> bool:
+        if not isinstance(n_id, str):
+            return False
+        try:
+            val = uuid.UUID(n_id, version=4)
+        except ValueError:
             return False
         return True
     

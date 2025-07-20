@@ -19,3 +19,10 @@ class EValueRepositoryMock(IEValueRepository):
         if e_id not in self._e_values_db:
             raise NoItemsFound(f"Nenhum valor de iluminância média encontrado com o ID {e_id}.")
         return self._e_values_db.get(e_id, None)
+
+    def calculate_e_value(self, b_section: float, h_height: float, p_reflectance: float) -> float:
+        '''
+        This method simulates the calculation of an E value based on the E_Value instance created below.
+        '''
+        temp_e_entity = E_Value(b_section=b_section, h_height=h_height, p_reflectance=p_reflectance, e_id="00000000-0000-0000-0000-000000000000")
+        return temp_e_entity.calculate_e()

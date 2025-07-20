@@ -1,11 +1,12 @@
 import math
+import uuid
 from src.shared.helpers.errors.domain_errors import EntityError
 
 class Edl_Value():
     b_section: float
     h_height: float
     p_reflectance: float
-    edl_id: int
+    edl_id: str
 
     def __init__ (self, b_section: float, h_height: float, p_reflectance: float, edl_id: int = None):
         if not self.validate_b(b_section):
@@ -19,14 +20,9 @@ class Edl_Value():
         if not self.validate_p(p_reflectance):
             raise EntityError("p_reflectance")
         self.p_reflectance = p_reflectance
-        
-        if type(edl_id) == int:
-            if edl_id < 0:
-                raise EntityError("edl_id")
 
-        if type(edl_id) != int:
-            print("edl_id must be an integer")
-
+        if not self.validate_edl_id(edl_id):
+            raise EntityError("edl_id")
         self.edl_id = edl_id
 
     @staticmethod
@@ -53,6 +49,16 @@ class Edl_Value():
             return False
         return True
     
+    @staticmethod
+    def validate_edl_id(edl_id: str) -> bool:
+        if not isinstance(edl_id, str):
+            return False
+        try:
+            val = uuid.UUID(edl_id, version=4)
+        except ValueError:
+            return False
+        return True
+
     def calculate_edl(self, b_section: float, h_height: float, p_reflectance: float) -> float:
         cfi = []
 
