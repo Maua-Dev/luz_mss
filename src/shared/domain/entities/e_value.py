@@ -4,13 +4,14 @@ from src.shared.helpers.errors.domain_errors import EntityError
 class E_Value():
     n_value: int
     edl_prcnt: float
+    b_section: float
     e_external: float
     a_area: float
     fd_value: float
     CD_VALUE: int = 3
     e_id: str
 
-    def __init__(self, n_value: int, edl_prcnt: float, e_external: float, a_area: float, fd_value: float, e_id: str = None):
+    def __init__(self, n_value: int, edl_prcnt: float, b_section: float, e_external: float, a_area: float, fd_value: float, e_id: str = None):
         if not self.validate_n_value(n_value):
             raise EntityError("n_value")
         self.n_value = n_value
@@ -18,6 +19,10 @@ class E_Value():
         if not self.validate_edl_prcnt(edl_prcnt):
             raise EntityError("edl_prcnt")
         self.edl_prcnt = edl_prcnt
+
+        if not self.validate_b_section(b_section):
+            raise EntityError("b_section")
+        self.b_section = b_section
 
         if not self.validate_e_external(e_external):
             raise EntityError("e_external")
@@ -50,6 +55,14 @@ class E_Value():
         elif type(edl_prcnt) != float:
             return False
         elif edl_prcnt < 0 or edl_prcnt > 100:
+            return False
+        return True
+
+    @staticmethod
+    def validate_b_section(b_section: float) -> bool:
+        if b_section is None:
+            return False
+        elif type(b_section) != float:
             return False
         return True
 
@@ -89,12 +102,12 @@ class E_Value():
             return False
         return True
 
-def calculate_e(self) -> float:
-    edl_lux = (self.edl_prcnt * self.e_external) / 100
-    duct = edl_lux * (self.b_section**2)
+    def calculate_e(self, edl_prcnt: float, e_external: float, b_section: float, fd_value: float, a_area: float, n_value: int) -> float:
+        edl_lux = (edl_prcnt * e_external) / 100
+        duct = edl_lux * (b_section**2)
 
-    if duct == 0 or self.fd_value == 0:
-        return 0
+        if duct == 0 or fd_value == 0:
+            return 0
 
-    e = (self.n_value * duct * self.CD_VALUE * self.fd_value) / self.a_area
-    return e
+        e = (n_value * duct * self.CD_VALUE * fd_value) / a_area
+        return e

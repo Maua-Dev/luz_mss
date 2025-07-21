@@ -19,9 +19,7 @@ class NValueRepositoryMock(INValueRepository):
             raise NoItemsFound(f"Nenhum valor N encontrado com o ID {n_id}.")
         return self._n_values_db.get(n_id)
 
-    def calculate_n_value(self, b_section: float, h_height: float, p_reflectance: float) -> float:
-        '''
-        This method simulates the calculation of an N value based on the N_Value instance created below.
-        '''
-        temp_n_entity = N_Value(b_section=b_section, h_height=h_height, p_reflectance=p_reflectance, n_id="00000000-0000-0000-0000-000000000000")
-        return temp_n_entity.calculate_n()
+    def calculate_n_value(self, temp_n_entity: N_Value) -> int:
+        if temp_n_entity is None:
+            raise ValueError("O objeto N_Value não pode ser None.")
+        return temp_n_entity.calculate_n(temp_n_entity.edl_prcnt, temp_n_entity.b_section, temp_n_entity.e_lux, temp_n_entity.e_external, temp_n_entity.a_area, temp_n_entity.fd_value)

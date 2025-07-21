@@ -19,9 +19,7 @@ class EdlValueRepositoryMock(IEdlValueRepository):
             raise NoItemsFound(f"Nenhum valor EDL encontrado com o ID {edl_id}.")
         return self._edl_values_db.get(edl_id)
 
-    def calculate_edl_value(self, b_section: float, h_height: float, p_reflectance: float) -> float:
-        '''
-        This method simulates the calculation of an EDL value based on the Edl instance created below.
-        '''
-        temp_edl_entity = Edl_Value(b_section=b_section, h_height=h_height, p_reflectance=p_reflectance, edl_id="00000000-0000-0000-0000-000000000000")
-        return temp_edl_entity.calculate_edl()
+    def calculate_edl_value(self, temp_edl_entity: Edl_Value) -> int:
+        if temp_edl_entity is None:
+            raise ValueError("O objeto Edl_Value não pode ser None.")
+        return temp_edl_entity.calculate_edl(temp_edl_entity.b_section, temp_edl_entity.h_height, temp_edl_entity.p_reflectance)

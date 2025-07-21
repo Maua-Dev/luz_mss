@@ -101,10 +101,10 @@ class N_Value():
         except ValueError:
             return False
         return True
-    
-    def calculate_n(self) -> int:        
-        edl_lux = (self.edl_prcnt * self.e_external) / 100
-        duct = edl_lux * (self.b_section**2)
+
+    def calculate_n(self, edl_prcnt: float, b_section: float, e_lux: int, e_external: float, a_area: float, fd_value: float) -> int:
+        edl_lux = (edl_prcnt * e_external) / 100
+        duct = edl_lux * (b_section**2)
 
         if duct == 0 or self.fd_value == 0:
             return 0

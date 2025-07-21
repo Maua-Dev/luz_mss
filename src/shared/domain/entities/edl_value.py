@@ -59,7 +59,7 @@ class Edl_Value():
             return False
         return True
 
-    def calculate_edl(self, b_section: float, h_height: float, p_reflectance: float) -> float:
+    def calculate_edl(self, b_section: float, h_height: float, p_reflectance: float) -> int:
         cfi = []
 
         for i in range(31):
