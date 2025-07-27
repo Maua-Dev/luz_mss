@@ -1,0 +1,1 @@
+#Acredito que o presenter seja desnecessário nessa rota, pois o controller já está lidando com a lógica de apresentação.
