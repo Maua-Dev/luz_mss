@@ -11,9 +11,7 @@ class CalculateEdlValueUseCase:
                  h_height: float, 
                  p_reflectance: float) -> float:
 
-        # Em src/modules/calculate_edl_value/app/calculate_edl_value_usecase.py
         edl_entity = Edl_Value(edl_id=str(uuid.uuid4()), b_section=b_section, h_height=h_height, p_reflectance=p_reflectance)
 
-        # Chama o repositório passando a entidade
         calculated_value = self._edl_repo.calculate_edl_value(edl_entity)
         return calculated_value
