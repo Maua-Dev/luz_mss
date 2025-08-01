@@ -109,5 +109,5 @@ class E_Value():
         if duct == 0 or fd_value == 0:
             return 0
 
-        e = (n_value * duct * self.CD_VALUE * fd_value) / a_area
+        e = float(round((n_value * duct * self.CD_VALUE * fd_value) / a_area))
         return e
