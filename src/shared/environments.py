@@ -2,8 +2,7 @@ import enum
 from enum import Enum
 import os
 from src.shared.domain.observability.observability_interface import IObservability
-
-from src.shared.domain.repositories.user_repository_interface import IUserRepository
+from src.shared.infra.repositories.e_value_repository_mock import EValueRepositoryMock
 
 
 class STAGE(Enum):
@@ -62,15 +61,11 @@ class Environments:
             self.cloud_front_distribution_domain = os.environ.get("CLOUD_FRONT_DISTRIBUTION_DOMAIN")
 
     @staticmethod
-    def get_user_repo() -> IUserRepository:
+    def get_e_value_repo():
         if Environments.get_envs().stage == STAGE.TEST:
-            from src.shared.infra.repositories.user_repository_mock import UserRepositoryMock
-            return UserRepositoryMock
-        elif Environments.get_envs().stage in [STAGE.DEV, STAGE.HOMOLOG, STAGE.PROD]:
-            from src.shared.infra.repositories.user_repository_dynamo import UserRepositoryDynamo
-            return UserRepositoryDynamo
+            return EValueRepositoryMock
         else:
-            raise Exception("No repository found for this stage")
+            return EValueRepositoryDynamo
 
     @staticmethod
     def get_observability() -> IObservability:
