@@ -2,8 +2,10 @@ import enum
 from enum import Enum
 import os
 from src.shared.domain.observability.observability_interface import IObservability
+from src.shared.infra.repositories.n_value_repository_mock import NValueRepositoryMock
 
-from src.shared.domain.repositories.user_repository_interface import IUserRepository
+
+# from src.shared.domain.repositories.user_repository_interface import IUserRepository
 
 
 class STAGE(Enum):
@@ -61,16 +63,27 @@ class Environments:
             self.dynamo_sort_key = os.environ.get("DYNAMO_SORT_KEY")
             self.cloud_front_distribution_domain = os.environ.get("CLOUD_FRONT_DISTRIBUTION_DOMAIN")
 
+    # @staticmethod
+    # def get_user_repo() -> IUserRepository:
+    #     if Environments.get_envs().stage == STAGE.TEST:
+    #         from src.shared.infra.repositories.user_repository_mock import UserRepositoryMock
+    #         return UserRepositoryMock
+    #     elif Environments.get_envs().stage in [STAGE.DEV, STAGE.HOMOLOG, STAGE.PROD]:
+    #         from src.shared.infra.repositories.user_repository_dynamo import UserRepositoryDynamo
+    #         return UserRepositoryDynamo
+    #     else:
+    #         raise Exception("No repository found for this stage")
+
     @staticmethod
-    def get_user_repo() -> IUserRepository:
+    def get_n_value_repo():
         if Environments.get_envs().stage == STAGE.TEST:
-            from src.shared.infra.repositories.user_repository_mock import UserRepositoryMock
-            return UserRepositoryMock
-        elif Environments.get_envs().stage in [STAGE.DEV, STAGE.HOMOLOG, STAGE.PROD]:
-            from src.shared.infra.repositories.user_repository_dynamo import UserRepositoryDynamo
-            return UserRepositoryDynamo
+            return NValueRepositoryMock
+        # elif Environments.get_envs().stage in [STAGE.DEV, STAGE.HOMOLOG, STAGE.PROD]:
+        #     from src.modules.calculate_n_value.infra.repositories.n_value_repository_dynamo import NValueRepositoryDynamo
+        #     return NValueRepositoryDynamo
         else:
-            raise Exception("No repository found for this stage")
+            return NValueRepositoryMock
+            # raise Exception("No repository found for this stage")
 
     @staticmethod
     def get_observability() -> IObservability:
