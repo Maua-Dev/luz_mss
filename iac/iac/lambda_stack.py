@@ -31,12 +31,15 @@ class LambdaStack(Construct):
     def __init__(self, scope: Construct, api_gateway_resource: Resource, environment_variables: dict) -> None:
         super().__init__(scope, "LuzMss_Lambdas")
 
+        self.functions_that_need_dynamo_permissions = []
+
         self.lambda_layer = lambda_.LayerVersion(self, "LuzMss_Layer",
                                                  code=lambda_.Code.from_asset("./lambda_layer_out_temp"),
                                                  compatible_runtimes=[lambda_.Runtime.PYTHON_3_9]
                                                  )
 
-        self.lambda_power_tools = lambda_.LayerVersion.from_layer_version_arn(self, "Lambda_Power_Tools", layer_version_arn=f"arn:aws:lambda:{environment_variables.get("AWS_REGION", "sa-east-1")}:017000801446:layer:AWSLambdaPowertoolsPythonV2:22")
+        layer_arn = f"arn:aws:lambda:{self.region}:017000801446:layer:AWSLambdaPowertoolsPythonV2:22"
+        self.lambda_power_tools = lambda_.LayerVersion.from_layer_version_arn(self, "Lambda_Power_Tools", layer_version_arn=layer_arn)
 
         self.calculate_edl_value_function = self.create_lambda_api_gateway_integration(
             module_name="calculate_edl_value",
@@ -45,4 +48,4 @@ class LambdaStack(Construct):
             environment_variables=environment_variables
         )
 
-        self.functions_that_need_dynamo_permissions = []
+        self.functions_that_need_dynamo_permissions.append(self.calculate_edl_value_function)
