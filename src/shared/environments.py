@@ -2,11 +2,12 @@ import enum
 from enum import Enum
 import os
 from src.shared.domain.observability.observability_interface import IObservability
+
+from src.shared.domain.repositories.n_value_repository_interface import INValueRepository
 from src.shared.infra.repositories.n_value_repository_mock import NValueRepositoryMock
 
-
-# from src.shared.domain.repositories.user_repository_interface import IUserRepository
-
+from src.shared.domain.repositories.edl_value_repository_interface import IEdlValueRepository
+from src.shared.infra.repositories.edl_value_repository_mock import EdlValueRepositoryMock
 
 class STAGE(Enum):
     DOTENV = "DOTENV"
@@ -75,15 +76,21 @@ class Environments:
     #         raise Exception("No repository found for this stage")
 
     @staticmethod
+
     def get_n_value_repo():
         if Environments.get_envs().stage == STAGE.TEST:
             return NValueRepositoryMock
-        # elif Environments.get_envs().stage in [STAGE.DEV, STAGE.HOMOLOG, STAGE.PROD]:
-        #     from src.modules.calculate_n_value.infra.repositories.n_value_repository_dynamo import NValueRepositoryDynamo
-        #     return NValueRepositoryDynamo
         else:
             return NValueRepositoryMock
             # raise Exception("No repository found for this stage")
+
+    def get_edl_value_repo() -> IEdlValueRepository:
+        if Environments.get_envs().stage == STAGE.TEST:
+            return EdlValueRepositoryMock
+        else:
+            return EdlValueRepositoryMock
+            # raise ValueError(f"Invalid stage: {Environments.get_envs().stage}")
+
 
     @staticmethod
     def get_observability() -> IObservability:
