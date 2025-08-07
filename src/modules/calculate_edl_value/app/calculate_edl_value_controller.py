@@ -1,5 +1,5 @@
-from src.modules.calculate_edl_value.app.calculate_edl_value_usecase import CalculateEdlValueUseCase
-from src.modules.calculate_edl_value.app.calculate_edl_value_viewmodel import CalculateEdlValueViewModel
+from .calculate_edl_value_usecase import CalculateEdlValueUseCase
+from .calculate_edl_value_viewmodel import CalculateEdlValueViewModel
 from src.shared.helpers.external_interfaces.external_interface import IRequest, IResponse
 from src.shared.helpers.external_interfaces.http_codes import OK, BadRequest, InternalServerError
 from src.shared.helpers.errors.domain_errors import EntityError
