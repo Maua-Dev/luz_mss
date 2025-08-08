@@ -3,6 +3,9 @@ from enum import Enum
 import os
 from src.shared.domain.observability.observability_interface import IObservability
 
+from src.shared.domain.repositories.e_value_repository_interface import IEValueRepository
+from src.shared.infra.repositories.e_value_repository_mock import EValueRepositoryMock
+
 from src.shared.domain.repositories.n_value_repository_interface import INValueRepository
 from src.shared.infra.repositories.n_value_repository_mock import NValueRepositoryMock
 
@@ -75,10 +78,17 @@ class Environments:
     #     else:
     #         raise Exception("No repository found for this stage")
 
-    @staticmethod
-
+   
     #TODO needs to change when dynamo repo is up
+    
+    @staticmethod
+    def get_e_value_repo() -> IEValueRepository:
+        if Environments.get_envs().stage == STAGE.TEST:
+            return EValueRepositoryMock
+        else:
+            return EValueRepositoryMock
 
+    @staticmethod
     def get_n_value_repo() -> INValueRepository:
         if Environments.get_envs().stage == STAGE.TEST:
             return NValueRepositoryMock
@@ -86,6 +96,7 @@ class Environments:
             return NValueRepositoryMock
             # raise Exception("No repository found for this stage")
 
+    @staticmethod
     def get_edl_value_repo() -> IEdlValueRepository:
         if Environments.get_envs().stage == STAGE.TEST:
             return EdlValueRepositoryMock
@@ -104,6 +115,7 @@ class Environments:
             return ObservabilityAWS
         else:
             raise Exception("No observability class found for this stage")
+            
     @staticmethod
     def get_envs() -> "Environments":
         """
