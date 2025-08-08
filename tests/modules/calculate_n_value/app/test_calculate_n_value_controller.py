@@ -131,7 +131,7 @@ class TestCalculateNValueController:
 
     def test_calculate_n_value_controller_invalid_b_section_type(self):
 
-      request = HttpRequest(body={
+        request = HttpRequest(body={
             'edl_prcnt': 66.0,
             'b_section': 'invalid',
             'e_lux': 200,
@@ -139,6 +139,7 @@ class TestCalculateNValueController:
             'a_area': 544.0,
             'fd_value': 0.7
         })
+        
         response = self.controller(request)
         
         assert isinstance(response, BadRequest)
@@ -222,7 +223,7 @@ class TestCalculateNValueController:
 
     def test_calculate_n_value_controller_invalid_b_section_value(self):
 
-      request = HttpRequest(body={
+        request = HttpRequest(body={
             'edl_prcnt': 66.0,
             'b_section': -1.0,
             'e_lux': 200,
@@ -237,6 +238,7 @@ class TestCalculateNValueController:
         assert response.body == {"message": "Campo 'b_section' deve ser um número positivo."}
 
     def test_calculate_n_value_controller_invalid_e_lux_value(self):
+        
         request = HttpRequest(body={
             'edl_prcnt': 66.0,
             'b_section': 0.9,
@@ -245,6 +247,7 @@ class TestCalculateNValueController:
             'a_area': 544.0,
             'fd_value': 0.7
         })
+        
         response = self.controller(request)
 
         assert isinstance(response, BadRequest)
