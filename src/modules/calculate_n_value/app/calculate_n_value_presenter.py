@@ -1,7 +1,7 @@
 from src.shared.environments import Environments
 from src.shared.helpers.external_interfaces.http_lambda_requests import LambdaHttpRequest, LambdaHttpResponse
-from src.modules.calculate_n_value.app.calculate_n_value_controller import CalculateNValueController
-from src.modules.calculate_n_value.app.calculate_n_value_usecase import CalculateNValueUseCase
+from .calculate_n_value_controller import CalculateNValueController
+from .calculate_n_value_usecase import CalculateNValueUseCase
 
 # --- Instantiation of Dependencies ---
 repo = Environments.get_n_value_repo()() 

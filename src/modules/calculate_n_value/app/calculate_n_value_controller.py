@@ -1,5 +1,5 @@
-from src.modules.calculate_n_value.app.calculate_n_value_usecase import CalculateNValueUseCase
-from src.modules.calculate_n_value.app.calculate_n_value_viewmodel import CalculateNValueViewModel
+from .calculate_n_value_usecase import CalculateNValueUseCase
+from .calculate_n_value_viewmodel import CalculateNValueViewModel
 from src.shared.helpers.external_interfaces.external_interface import IRequest, IResponse
 from src.shared.helpers.external_interfaces.http_codes import OK, BadRequest, InternalServerError
 from src.shared.helpers.errors.domain_errors import EntityError

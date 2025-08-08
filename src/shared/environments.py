@@ -77,7 +77,9 @@ class Environments:
 
     @staticmethod
 
-    def get_n_value_repo():
+    #TODO needs to change when dynamo repo is up
+
+    def get_n_value_repo() -> INValueRepository:
         if Environments.get_envs().stage == STAGE.TEST:
             return NValueRepositoryMock
         else:
