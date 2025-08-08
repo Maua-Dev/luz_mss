@@ -2,7 +2,14 @@ import enum
 from enum import Enum
 import os
 from src.shared.domain.observability.observability_interface import IObservability
+
+from src.shared.domain.repositories.e_value_repository_interface import IEValueRepository
 from src.shared.infra.repositories.e_value_repository_mock import EValueRepositoryMock
+
+from src.shared.domain.repositories.n_value_repository_interface import INValueRepository
+from src.shared.infra.repositories.n_value_repository_mock import NValueRepositoryMock
+
+from src.shared.domain.repositories.edl_value_repository_interface import IEdlValueRepository
 from src.shared.infra.repositories.edl_value_repository_mock import EdlValueRepositoryMock
 
 class STAGE(Enum):
@@ -71,18 +78,26 @@ class Environments:
     #     else:
     #         raise Exception("No repository found for this stage")
 
+   
+    #TODO needs to change when dynamo repo is up
+    
     @staticmethod
-    def get_e_value_repo():
+    def get_e_value_repo() -> IEValueRepository:
         if Environments.get_envs().stage == STAGE.TEST:
             return EValueRepositoryMock
         else:
-            return EValueRepositoryDynamo
+            return EValueRepositoryMock
+
+    @staticmethod
+    def get_n_value_repo() -> INValueRepository:
+        if Environments.get_envs().stage == STAGE.TEST:
+            return NValueRepositoryMock
+        else:
+            return NValueRepositoryMock
+            # raise Exception("No repository found for this stage")
 
     @staticmethod
     def get_edl_value_repo() -> IEdlValueRepository:
-        """
-        Provides the appropriate EdlValueRepository implementation based on the current environment stage.
-        """
         if Environments.get_envs().stage == STAGE.TEST:
             return EdlValueRepositoryMock
         else:
@@ -100,6 +115,7 @@ class Environments:
             return ObservabilityAWS
         else:
             raise Exception("No observability class found for this stage")
+            
     @staticmethod
     def get_envs() -> "Environments":
         """
