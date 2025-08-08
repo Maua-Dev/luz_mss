@@ -1,7 +1,7 @@
 from src.shared.environments import Environments
 from src.shared.helpers.external_interfaces.http_lambda_requests import LambdaHttpRequest, LambdaHttpResponse
-from src.modules.calculate_e_value.app.calculate_e_value_controller import CalculateEValueController
-from src.modules.calculate_e_value.app.calculate_e_value_usecase import CalculateEValueUseCase
+from .calculate_e_value_controller import CalculateEValueController
+from .calculate_e_value_usecase import CalculateEValueUseCase
 
 # --- Instantiation of Dependencies ---
 repo = Environments.get_e_value_repo()() 

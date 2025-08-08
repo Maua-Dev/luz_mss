@@ -1,7 +1,6 @@
 from src.shared.environments import Environments
 from src.shared.helpers.external_interfaces.http_lambda_requests import LambdaHttpRequest, LambdaHttpResponse
 from .calculate_edl_value_controller import CalculateEdlValueController
-# from src.modules.calculate_edl_value.app.calculate_edl_value_presenter import CalculateEdlValuePresenter
 from .calculate_edl_value_usecase import CalculateEdlValueUseCase
 
 # --- Instantiation of Dependencies ---

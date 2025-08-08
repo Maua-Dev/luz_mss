@@ -1,5 +1,5 @@
-from src.modules.calculate_e_value.app.calculate_e_value_usecase import CalculateEValueUseCase
-from src.modules.calculate_e_value.app.calculate_e_value_viewmodel import CalculateEValueViewModel
+from .calculate_e_value_usecase import CalculateEValueUseCase
+from .calculate_e_value_viewmodel import CalculateEValueViewModel
 from src.shared.helpers.external_interfaces.external_interface import IRequest, IResponse
 from src.shared.helpers.external_interfaces.http_codes import OK, BadRequest, InternalServerError
 from src.shared.helpers.errors.domain_errors import EntityError
