@@ -47,5 +47,13 @@ class LambdaStack(Construct):
             mss_luz_api_resource=api_gateway_resource,
             environment_variables=environment_variables
         )
+        
+        self.calculate_n_value_function = self.create_lambda_api_gateway_integration(
+            module_name="calculate_n_value",
+            method="POST",
+            mss_luz_api_resource=api_gateway_resource,
+            environment_variables=environment_variables
+        )
 
         self.functions_that_need_dynamo_permissions.append(self.calculate_edl_value_function)
+        self.functions_that_need_dynamo_permissions.append(self.calculate_n_value_function)
