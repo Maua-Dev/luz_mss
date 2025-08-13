@@ -1,13 +1,13 @@
 from src.shared.environments import Environments
 from src.shared.helpers.external_interfaces.http_lambda_requests import LambdaHttpRequest, LambdaHttpResponse
-from .calculate_n_value_controller import CalculateNValueController
-from .calculate_n_value_usecase import CalculateNValueUseCase
+from .calculate_edl_value_controller import CalculateEdlValueController
+from .calculate_edl_value_usecase import CalculateEdlValueUseCase
 
 # --- Instantiation of Dependencies ---
-repo = Environments.get_n_value_repo()() 
+repo = Environments.get_edl_value_repo()() 
 
-usecase = CalculateNValueUseCase(repo)
-controller = CalculateNValueController(usecase)
+usecase = CalculateEdlValueUseCase(repo)
+controller = CalculateEdlValueController(usecase)
 
 # --- Lambda Handler Function ---
 def lambda_handler(event, context):
