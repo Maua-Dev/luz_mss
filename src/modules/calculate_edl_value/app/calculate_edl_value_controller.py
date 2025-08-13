@@ -36,7 +36,15 @@ class CalculateEdlValueController:
                     return BadRequest({"message": "Campo 'h_height' deve ser um número positivo."})
                 if p_reflectance < 0:
                     return BadRequest({"message": "Campo 'p_reflectance' deve ser um número positivo."})
-                    
+
+                # Validate range (decimal value)
+                if b_section >= 10000:
+                    return BadRequest({"message": "Campo 'b_section' não deve ser maior que 10000."})
+                if h_height >= 100000:
+                    return BadRequest({"message": "Campo 'h_height' não deve ser maior que 100000."})
+                if p_reflectance > 1.000:
+                    return BadRequest({"message": "Campo 'p_reflectance' deve ser um número decimal entre 0 e 1."})
+
             except ValueError:
                 return BadRequest(body={"message": "Erro de tipo de dados. Certifique-se de que 'b_section', 'h_height' e 'p_reflectance' são valores numéricos válidos."})
 

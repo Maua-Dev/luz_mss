@@ -125,3 +125,36 @@ class TestCalculateEdlValueController:
         assert isinstance(response, BadRequest)
         assert response.status_code == 400
         assert response.body == {"message": "Campo 'p_reflectance' deve ser um número positivo."}
+
+    def test_calculate_edl_value_controller_out_of_range_b_section(self):
+        request = HttpRequest(body={
+            'b_section': 10000.0,
+            'h_height': 2.0,
+            'p_reflectance': 0.5
+        })
+        response = self.controller(request)
+        assert isinstance(response, BadRequest)
+        assert response.status_code == 400
+        assert response.body == {"message": "Campo 'b_section' não deve ser maior que 10000."}
+
+    def test_calculate_edl_value_controller_out_of_range_h_height(self):
+        request = HttpRequest(body={
+            'b_section': 1.0,
+            'h_height': 100000.0,
+            'p_reflectance': 0.5
+        })
+        response = self.controller(request)
+        assert isinstance(response, BadRequest)
+        assert response.status_code == 400
+        assert response.body == {"message": "Campo 'h_height' não deve ser maior que 100000."}
+
+    def test_calculate_edl_value_controller_out_of_range_p_reflectance(self):
+        request = HttpRequest(body={
+            'b_section': 1.0,
+            'h_height': 2.0,
+            'p_reflectance': 1.001
+        })
+        response = self.controller(request)
+        assert isinstance(response, BadRequest)
+        assert response.status_code == 400
+        assert response.body == {"message": "Campo 'p_reflectance' deve ser um número decimal entre 0 e 1."}
