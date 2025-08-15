@@ -61,7 +61,7 @@ class TestCalculateEValuePresenter:
         response = lambda_handler(event, context)
 
         assert response['statusCode'] == 400
-        assert json.loads(response['body']) == {"message": "Campo 'b_section' ausente."}
+        assert json.loads(response['body']) == {"message": "Campo 'b_section' ausente ou inválido."}
 
 
     def test_lambda_handler_invalid_body_json(self):
@@ -81,7 +81,7 @@ class TestCalculateEValuePresenter:
         response = lambda_handler(event, context)
 
         assert response['statusCode'] == 400
-        assert json.loads(response['body']) == {"message": "Campo 'n_value' ausente."}
+        assert json.loads(response['body']) == {"message": "Campo 'n_value' ausente ou inválido."}
 
 
     def test_lambda_handler_invalid_type_input(self):
