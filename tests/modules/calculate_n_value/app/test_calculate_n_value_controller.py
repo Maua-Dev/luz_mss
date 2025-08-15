@@ -42,7 +42,7 @@ class TestCalculateNValueController:
 
         assert isinstance(response, BadRequest)
         assert response.status_code == 400
-        assert response.body == {"message": "Campo 'edl_prcnt' ausente."}
+        assert response.body == {"message": "Campo 'edl_prcnt' ausente ou inválido."}
 
     def test_calculate_n_value_controller_missing_b_section(self):
         request = HttpRequest(body={
@@ -56,7 +56,7 @@ class TestCalculateNValueController:
 
         assert isinstance(response, BadRequest)
         assert response.status_code == 400
-        assert response.body == {"message": "Campo 'b_section' ausente."}
+        assert response.body == {"message": "Campo 'b_section' ausente ou inválido."}
 
     def test_calculate_n_value_controller_missing_e_lux(self):
         request = HttpRequest(body={
@@ -70,7 +70,7 @@ class TestCalculateNValueController:
 
         assert isinstance(response, BadRequest)
         assert response.status_code == 400
-        assert response.body == {"message": "Campo 'e_lux' ausente."}
+        assert response.body == {"message": "Campo 'e_lux' ausente ou inválido."}
 
     def test_calculate_n_value_controller_missing_e_external(self):
         request = HttpRequest(body={
@@ -84,7 +84,7 @@ class TestCalculateNValueController:
 
         assert isinstance(response, BadRequest)
         assert response.status_code == 400
-        assert response.body == {"message": "Campo 'e_external' ausente."}
+        assert response.body == {"message": "Campo 'e_external' ausente ou inválido."}
 
     def test_calculate_n_value_controller_missing_a_area(self):
         request = HttpRequest(body={
@@ -98,7 +98,7 @@ class TestCalculateNValueController:
 
         assert isinstance(response, BadRequest)
         assert response.status_code == 400
-        assert response.body == {"message": "Campo 'a_area' ausente."}
+        assert response.body == {"message": "Campo 'a_area' ausente ou inválido."}
 
     def test_calculate_n_value_controller_missing_fd_value(self):
         request = HttpRequest(body={
@@ -112,7 +112,7 @@ class TestCalculateNValueController:
 
         assert isinstance(response, BadRequest)
         assert response.status_code == 400
-        assert response.body == {"message": "Campo 'fd_value' ausente."}
+        assert response.body == {"message": "Campo 'fd_value' ausente ou inválido."}
 
     def test_calculate_n_value_controller_invalid_edl_prcnt_type(self):
         request = HttpRequest(body={

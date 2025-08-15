@@ -19,18 +19,31 @@ class CalculateNValueController:
             a_area_str = body.get('a_area')
             fd_value_str = body.get('fd_value')
 
-            if edl_prcnt_str is None:
-                return BadRequest({"message": "Campo 'edl_prcnt' ausente."})
-            if b_section_str is None:
-                return BadRequest({"message": "Campo 'b_section' ausente."})
+            def tem_mais_de_3_casas_decimais(s_numero):
+                # Verifica se há um ponto decimal na string
+                if '.' in s_numero:
+                    indice_ponto = s_numero.index('.')
+                    parte_decimal = s_numero[indice_ponto + 1:]
+                    
+                    # Verifica se o comprimento da parte decimal é maior que 3
+                    if len(parte_decimal) > 3:
+                        return False
+
+                # Se não houver ponto decimal ou se tiver 3 ou menos casas, retorna True
+                return True
+
+            if edl_prcnt_str is None or not tem_mais_de_3_casas_decimais(str(edl_prcnt_str)):
+                return BadRequest({"message": "Campo 'edl_prcnt' ausente ou inválido."})
+            if b_section_str is None or not tem_mais_de_3_casas_decimais(str(b_section_str)):
+                return BadRequest({"message": "Campo 'b_section' ausente ou inválido."})
             if e_lux_str is None:
-                return BadRequest({"message": "Campo 'e_lux' ausente."})
-            if e_external_str is None:
-                return BadRequest({"message": "Campo 'e_external' ausente."})
-            if a_area_str is None:
-                return BadRequest({"message": "Campo 'a_area' ausente."})
-            if fd_value_str is None:
-                return BadRequest({"message": "Campo 'fd_value' ausente."})
+                return BadRequest({"message": "Campo 'e_lux' ausente ou inválido."})
+            if e_external_str is None or not tem_mais_de_3_casas_decimais(str(e_external_str)):
+                return BadRequest({"message": "Campo 'e_external' ausente ou inválido."})
+            if a_area_str is None or not tem_mais_de_3_casas_decimais(str(a_area_str)):
+                return BadRequest({"message": "Campo 'a_area' ausente ou inválido."})
+            if fd_value_str is None or not tem_mais_de_3_casas_decimais(str(fd_value_str)):
+                return BadRequest({"message": "Campo 'fd_value' ausente ou inválido."})
 
             try:
                 edl_prcnt = float(edl_prcnt_str)
