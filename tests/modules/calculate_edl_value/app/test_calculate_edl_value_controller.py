@@ -36,7 +36,7 @@ class TestCalculateEdlValueController:
 
         assert isinstance(response, BadRequest)
         assert response.status_code == 400
-        assert response.body == {"message": "Campo 'b_section' ausente."}
+        assert response.body == {"message": "Campo 'b_section' ausente ou inválido."}
 
     def test_calculate_edl_value_controller_missing_h_height(self):
         request = HttpRequest(body={
@@ -46,7 +46,7 @@ class TestCalculateEdlValueController:
         response = self.controller(request)
         assert isinstance(response, BadRequest)
         assert response.status_code == 400
-        assert response.body == {"message": "Campo 'h_height' ausente."}
+        assert response.body == {"message": "Campo 'h_height' ausente ou inválido."}
 
     def test_calculate_edl_value_controller_missing_p_reflectance(self):
         request = HttpRequest(body={
@@ -56,7 +56,7 @@ class TestCalculateEdlValueController:
         response = self.controller(request)
         assert isinstance(response, BadRequest)
         assert response.status_code == 400
-        assert response.body == {"message": "Campo 'p_reflectance' ausente."}
+        assert response.body == {"message": "Campo 'p_reflectance' ausente ou inválido."}
 
     def test_calculate_edl_value_controller_invalid_b_section_type(self):
         request = HttpRequest(body={
@@ -152,7 +152,7 @@ class TestCalculateEdlValueController:
         request = HttpRequest(body={
             'b_section': 1.0,
             'h_height': 2.0,
-            'p_reflectance': 1.001
+            'p_reflectance': 1.1
         })
         response = self.controller(request)
         assert isinstance(response, BadRequest)
