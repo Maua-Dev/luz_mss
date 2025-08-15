@@ -55,9 +55,22 @@ class CalculateEValueController:
 
                 if e_external == 0:
                     return InternalServerError({"message": f"Erro interno do servidor: {e}"})
-                
                 if fd_value == 0:
                     return InternalServerError({"message": f"Erro interno do servidor: {e}"})
+
+                # Validate ranges
+                if n_value > 1000000:
+                    return BadRequest({"message": "Campo 'n_value' não deve ser maior que 1000000."})
+                if edl_prcnt > 100:
+                    return BadRequest({"message": "Campo 'edl_prcnt' não deve ser maior que 100%."})
+                if b_section >= 10000:
+                    return BadRequest({"message": "Campo 'b_section' não deve ser maior que 10000."})
+                if e_external > 1000000:
+                    return BadRequest({"message": "Campo 'e_external' não deve ser maior que 1000000."})
+                if a_area > 1000000:
+                    return BadRequest({"message": "Campo 'a_area' não deve ser maior que 1000000."})
+                if fd_value > 1000000:
+                    return BadRequest({"message": "Campo 'fd_value' não deve ser maior que 1000000."})
 
             except ValueError:
                 return BadRequest(body={"message": "Erro de tipo de dados. Certifique-se de que todos os campos são valores numéricos válidos."})

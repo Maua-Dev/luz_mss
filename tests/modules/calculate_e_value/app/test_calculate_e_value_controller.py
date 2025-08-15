@@ -293,3 +293,93 @@ class TestCalculateEValueController:
         assert isinstance(response, BadRequest)
         assert response.status_code == 400
         assert response.body == {"message": "Campo 'fd_value' deve ser um número positivo."}
+
+    def test_calculate_e_value_controller_out_of_range_n_value(self):
+        request = HttpRequest(body={
+            'n_value': 1000001,
+            'edl_prcnt': 101.0,
+            'b_section': 10001.0,
+            'e_external': 1000001.0,
+            'a_area': 1000001.0,
+            'fd_value': 1000001.0
+        })
+        response = self.controller(request)
+
+        assert isinstance(response, BadRequest)
+        assert response.status_code == 400
+        assert "não deve ser maior que" in response.body['message']
+
+    def test_calculate_e_value_controller_out_of_range_edl_prcnt(self):
+        request = HttpRequest(body={
+            'n_value': 5,
+            'edl_prcnt': 101.0,
+            'b_section': 0.9,
+            'e_external': 20000.0,
+            'a_area': 544.0,
+            'fd_value': 0.7
+        })
+        response = self.controller(request)
+
+        assert isinstance(response, BadRequest)
+        assert response.status_code == 400
+        assert "não deve ser maior que" in response.body['message']
+
+    def test_calculate_e_value_controller_out_of_range_b_section(self):
+        request = HttpRequest(body={
+            'n_value': 5,
+            'edl_prcnt': 66.0,
+            'b_section': 10001.0,
+            'e_external': 20000.0,
+            'a_area': 544.0,
+            'fd_value': 0.7
+        })
+        response = self.controller(request)
+
+        assert isinstance(response, BadRequest)
+        assert response.status_code == 400
+        assert "não deve ser maior que" in response.body['message']
+
+    def test_calculate_e_value_controller_out_of_range_e_external(self):
+        request = HttpRequest(body={
+            'n_value': 5,
+            'edl_prcnt': 66.0,
+            'b_section': 0.9,
+            'e_external': 1000001.0,
+            'a_area': 544.0,
+            'fd_value': 0.7
+        })
+        response = self.controller(request)
+
+        assert isinstance(response, BadRequest)
+        assert response.status_code == 400
+        assert "não deve ser maior que" in response.body['message']
+
+    def test_calculate_e_value_controller_out_of_range_a_area(self):
+        request = HttpRequest(body={
+            'n_value': 5,
+            'edl_prcnt': 66.0,
+            'b_section': 0.9,
+            'e_external': 20000.0,
+            'a_area': 1000001.0,
+            'fd_value': 0.7
+        })
+        response = self.controller(request)
+
+        assert isinstance(response, BadRequest)
+        assert response.status_code == 400
+        assert "não deve ser maior que" in response.body['message']
+
+    def test_calculate_e_value_controller_out_of_range_fd_value(self):
+        request = HttpRequest(body={
+            'n_value': 5,
+            'edl_prcnt': 66.0,
+            'b_section': 0.9,
+            'e_external': 20000.0,
+            'a_area': 544.0,
+            'fd_value': 1000001.0
+        })
+        response = self.controller(request)
+
+        assert isinstance(response, BadRequest)
+        assert response.status_code == 400
+        assert "não deve ser maior que" in response.body['message']
