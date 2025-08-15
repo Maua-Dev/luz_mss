@@ -42,7 +42,7 @@ class TestCalculateNValueController:
 
         assert isinstance(response, BadRequest)
         assert response.status_code == 400
-        assert response.body == {"message": "Campo 'edl_prcnt' ausente."}
+        assert response.body == {"message": "Campo 'edl_prcnt' ausente ou inválido."}
 
     def test_calculate_n_value_controller_missing_b_section(self):
         request = HttpRequest(body={
@@ -56,7 +56,7 @@ class TestCalculateNValueController:
 
         assert isinstance(response, BadRequest)
         assert response.status_code == 400
-        assert response.body == {"message": "Campo 'b_section' ausente."}
+        assert response.body == {"message": "Campo 'b_section' ausente ou inválido."}
 
     def test_calculate_n_value_controller_missing_e_lux(self):
         request = HttpRequest(body={
@@ -70,7 +70,7 @@ class TestCalculateNValueController:
 
         assert isinstance(response, BadRequest)
         assert response.status_code == 400
-        assert response.body == {"message": "Campo 'e_lux' ausente."}
+        assert response.body == {"message": "Campo 'e_lux' ausente ou inválido."}
 
     def test_calculate_n_value_controller_missing_e_external(self):
         request = HttpRequest(body={
@@ -84,7 +84,7 @@ class TestCalculateNValueController:
 
         assert isinstance(response, BadRequest)
         assert response.status_code == 400
-        assert response.body == {"message": "Campo 'e_external' ausente."}
+        assert response.body == {"message": "Campo 'e_external' ausente ou inválido."}
 
     def test_calculate_n_value_controller_missing_a_area(self):
         request = HttpRequest(body={
@@ -98,7 +98,7 @@ class TestCalculateNValueController:
 
         assert isinstance(response, BadRequest)
         assert response.status_code == 400
-        assert response.body == {"message": "Campo 'a_area' ausente."}
+        assert response.body == {"message": "Campo 'a_area' ausente ou inválido."}
 
     def test_calculate_n_value_controller_missing_fd_value(self):
         request = HttpRequest(body={
@@ -112,7 +112,7 @@ class TestCalculateNValueController:
 
         assert isinstance(response, BadRequest)
         assert response.status_code == 400
-        assert response.body == {"message": "Campo 'fd_value' ausente."}
+        assert response.body == {"message": "Campo 'fd_value' ausente ou inválido."}
 
     def test_calculate_n_value_controller_invalid_edl_prcnt_type(self):
         request = HttpRequest(body={
@@ -313,3 +313,93 @@ class TestCalculateNValueController:
         assert isinstance(response, InternalServerError)
         assert response.status_code == 500
         assert "Erro interno do servidor:" in response.body['message']
+
+    def test_calculate_n_value_controller_out_of_range_edl_prcnt_value(self):
+        request = HttpRequest(body={
+            'edl_prcnt': 101.0,
+            'b_section': 0.9,
+            'e_lux': 200,
+            'e_external': 20000.0,
+            'a_area': 544.0,
+            'fd_value': 0.7
+        })
+        response = self.controller(request)
+
+        assert isinstance(response, BadRequest)
+        assert response.status_code == 400
+        assert response.body == {"message": "Campo 'edl_prcnt' não deve ser maior que 100%."}
+
+    def test_calculate_n_value_controller_out_of_range_b_section_value(self):
+        request = HttpRequest(body={
+            'edl_prcnt': 66.0,
+            'b_section': 10001.0,
+            'e_lux': 200,
+            'e_external': 20000.0,
+            'a_area': 544.0,
+            'fd_value': 0.7
+        })
+        response = self.controller(request)
+
+        assert isinstance(response, BadRequest)
+        assert response.status_code == 400
+        assert response.body == {"message": "Campo 'b_section' não deve ser maior que 10000."}
+
+    def test_calculate_n_value_controller_out_of_range_e_lux_value(self):
+        request = HttpRequest(body={
+            'edl_prcnt': 66.0,
+            'b_section': 0.9,
+            'e_lux': 1000001.0,
+            'e_external': 20000.0,
+            'a_area': 544.0,
+            'fd_value': 0.7
+        })
+        response = self.controller(request)
+
+        assert isinstance(response, BadRequest)
+        assert response.status_code == 400
+        assert response.body == {"message": "Campo 'e_lux' não deve ser maior que 1000000."}
+
+    def test_calculate_n_value_controller_out_of_range_e_external_value(self):
+        request = HttpRequest(body={
+            'edl_prcnt': 66.0,
+            'b_section': 0.9,
+            'e_lux': 200,
+            'e_external': 1000001.0,
+            'a_area': 544.0,
+            'fd_value': 0.7
+        })
+        response = self.controller(request)
+
+        assert isinstance(response, BadRequest)
+        assert response.status_code == 400
+        assert response.body == {"message": "Campo 'e_external' não deve ser maior que 1000000."}
+
+    def test_calculate_n_value_controller_out_of_range_a_area_value(self):
+        request = HttpRequest(body={
+            'edl_prcnt': 66.0,
+            'b_section': 0.9,
+            'e_lux': 200,
+            'e_external': 20000.0,
+            'a_area': 1000001.0,
+            'fd_value': 0.7
+        })
+        response = self.controller(request)
+
+        assert isinstance(response, BadRequest)
+        assert response.status_code == 400
+        assert response.body == {"message": "Campo 'a_area' não deve ser maior que 1000000."}
+
+    def test_calculate_n_value_controller_out_of_range_fd_value(self):
+        request = HttpRequest(body={
+            'edl_prcnt': 66.0,
+            'b_section': 0.9,
+            'e_lux': 200,
+            'e_external': 20000.0,
+            'a_area': 544.0,
+            'fd_value': 1000001.0
+        })
+        response = self.controller(request)
+
+        assert isinstance(response, BadRequest)
+        assert response.status_code == 400
+        assert response.body == {"message": "Campo 'fd_value' não deve ser maior que 1000000."}
