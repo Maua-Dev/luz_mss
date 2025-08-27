@@ -11,7 +11,8 @@ class CalculateNValueUseCase:
                  e_lux: int,
                  e_external: float,
                  a_area: float,
-                 fd_value: float
+                 fd_value: float,
+                 cd_value: float
                  ) -> float:
 
         n_value_entity = N_Value(n_id=str(uuid.uuid4()), 
@@ -20,7 +21,8 @@ class CalculateNValueUseCase:
                                  e_lux=e_lux,
                                  e_external=e_external,
                                  a_area=a_area,
-                                 fd_value=fd_value)
+                                 fd_value=fd_value,
+                                 cd_value=cd_value)
 
         calculated_value = self._n_value_repo.calculate_n_value(n_value_entity)
         return calculated_value
