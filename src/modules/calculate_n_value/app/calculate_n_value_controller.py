@@ -76,6 +76,8 @@ class CalculateNValueController:
                     return InternalServerError({"message": f"Erro interno do servidor: {e}"})
                 if fd_value == 0:
                     return InternalServerError({"message": f"Erro interno do servidor: {e}"})
+                if cd_value == 0:
+                    return InternalServerError({"message": f"Erro interno do servidor: {e}"})
 
                 # Validate ranges
                 if edl_prcnt > 100:
@@ -103,7 +105,8 @@ class CalculateNValueController:
                 e_lux=e_lux,
                 e_external=e_external,
                 a_area=a_area,
-                fd_value=fd_value
+                fd_value=fd_value,
+                cd_value=cd_value
             )
 
             # Create the ViewModel with the calculated value
