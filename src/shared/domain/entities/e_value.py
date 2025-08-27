@@ -8,10 +8,10 @@ class E_Value():
     e_external: float
     a_area: float
     fd_value: float
-    CD_VALUE: int = 3
+    cd_value: int = 3
     e_id: str
 
-    def __init__(self, n_value: int, edl_prcnt: float, b_section: float, e_external: float, a_area: float, fd_value: float, e_id: str = None):
+    def __init__(self, n_value: int, edl_prcnt: float, b_section: float, e_external: float, a_area: float, fd_value: float, cd_value: float, e_id: str = None):
         if not self.validate_n_value(n_value):
             raise EntityError("n_value")
         self.n_value = n_value
@@ -36,6 +36,10 @@ class E_Value():
             raise EntityError("fd_value")
         self.fd_value = fd_value
 
+        if not self.validate_cd_value(cd_value):
+            raise EntityError("cd_value")
+        self.cd_value = cd_value
+
         if not self.validate_e_id(e_id):
             raise EntityError("e_id")
         self.e_id = e_id
@@ -53,8 +57,6 @@ class E_Value():
         if edl_prcnt is None:
             return False
         elif type(edl_prcnt) != float:
-            return False
-        elif edl_prcnt < 0 or edl_prcnt > 100:
             return False
         return True
 
@@ -88,7 +90,13 @@ class E_Value():
             return False
         elif type(fd_value) != float:
             return False
-        elif fd_value == 0:
+        return True
+
+    @staticmethod
+    def validate_cd_value(cd_value: float) -> bool:
+        if cd_value is None:
+            return False
+        elif type(cd_value) != float:
             return False
         return True
 
@@ -102,12 +110,12 @@ class E_Value():
             return False
         return True
 
-    def calculate_e(self, edl_prcnt: float, e_external: float, b_section: float, fd_value: float, a_area: float, n_value: int) -> float:
+    def calculate_e(self, edl_prcnt: float, e_external: float, b_section: float, fd_value: float, a_area: float, n_value: int, cd_value: float) -> float:
         edl_lux = (edl_prcnt * e_external) / 100
         duct = edl_lux * (b_section**2)
 
         if duct == 0 or fd_value == 0:
             return 0
 
-        e = float(round((n_value * duct * self.CD_VALUE * fd_value) / a_area))
+        e = float(round((n_value * duct * cd_value * fd_value) / a_area))
         return e
