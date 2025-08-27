@@ -17,12 +17,25 @@ class CalculateEdlValueController:
             h_height_str = body.get('h_height')
             p_reflectance_str = body.get('p_reflectance')
 
-            if b_section_str is None:
-                return BadRequest({"message": "Campo 'b_section' ausente."})
-            if h_height_str is None:
-                return BadRequest({"message": "Campo 'h_height' ausente."})
-            if p_reflectance_str is None:
-                return BadRequest({"message": "Campo 'p_reflectance' ausente."})
+            def tem_mais_de_3_casas_decimais(s_numero):
+                # Verifica se há um ponto decimal na string
+                if '.' in s_numero:
+                    indice_ponto = s_numero.index('.')
+                    parte_decimal = s_numero[indice_ponto + 1:]
+                    
+                    # Verifica se o comprimento da parte decimal é maior que 3
+                    if len(parte_decimal) > 3:
+                        return False
+
+                # Se não houver ponto decimal ou se tiver 3 ou menos casas, retorna True
+                return True
+
+            if b_section_str is None or not tem_mais_de_3_casas_decimais(str(b_section_str)):
+                return BadRequest({"message": "Campo 'b_section' ausente ou inválido."})
+            if h_height_str is None or not tem_mais_de_3_casas_decimais(str(h_height_str)):
+                return BadRequest({"message": "Campo 'h_height' ausente ou inválido."})
+            if p_reflectance_str is None or not tem_mais_de_3_casas_decimais(str(p_reflectance_str)):
+                return BadRequest({"message": "Campo 'p_reflectance' ausente ou inválido."})
             
             # Convert string inputs to float
             try:
@@ -36,7 +49,15 @@ class CalculateEdlValueController:
                     return BadRequest({"message": "Campo 'h_height' deve ser um número positivo."})
                 if p_reflectance < 0:
                     return BadRequest({"message": "Campo 'p_reflectance' deve ser um número positivo."})
-                    
+
+                # Validate range (decimal value)
+                if b_section >= 10000:
+                    return BadRequest({"message": "Campo 'b_section' não deve ser maior que 10000."})
+                if h_height >= 100000:
+                    return BadRequest({"message": "Campo 'h_height' não deve ser maior que 100000."})
+                if p_reflectance > 1:
+                    return BadRequest({"message": "Campo 'p_reflectance' deve ser um número decimal entre 0 e 1."})
+
             except ValueError:
                 return BadRequest(body={"message": "Erro de tipo de dados. Certifique-se de que 'b_section', 'h_height' e 'p_reflectance' são valores numéricos válidos."})
 
