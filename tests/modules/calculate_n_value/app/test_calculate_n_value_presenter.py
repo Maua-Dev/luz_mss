@@ -18,7 +18,8 @@ class TestCalculateNValuePresenter:
                 "e_lux": 200.0,
                 "e_external": 20000.0,
                 "a_area": 544.0,
-                "fd_value": 0.7
+                "fd_value": 0.7,
+                "cd_value": 3.0
             }),
             "headers": {
                 "content-type": "application/json"
@@ -96,7 +97,8 @@ class TestCalculateNValuePresenter:
                 "e_lux": 200.0,
                 "e_external": 20000.0,
                 "a_area": 544.0,
-                "fd_value": 0.7
+                "fd_value": 0.7,
+                "cd_value": 'invalid_type'
             }),
             "headers": {
                 "content-type": "application/json"
@@ -123,7 +125,8 @@ class TestCalculateNValuePresenter:
                 "e_lux": 200.0,
                 "e_external": 20000.0,
                 "a_area": 544.0,
-                "fd_value": 0.7
+                "fd_value": 0.7,
+                "cd_value": -3.0
             }),
             "headers": {
                 "content-type": "application/json"
@@ -150,7 +153,8 @@ class TestCalculateNValuePresenter:
                 "e_lux": 200.0,
                 "e_external": 20000.0,
                 "a_area": 544.0,
-                "fd_value": 0.0
+                "fd_value": 0.0,
+                "cd_value": 3
             }),
             "headers": {
                 "content-type": "application/json"
