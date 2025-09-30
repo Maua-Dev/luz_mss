@@ -4,7 +4,7 @@ from src.shared.domain.entities.n_value import N_Value
 class INValueRepository():
 
     @abstractmethod
-    def calculate_n_value(self, edl_prcnt: float, b_section: float, e_lux: int, e_external: float, a_area: float, fd_value: float, cd_value: float) -> int:
+    def calculate_n_value(self, edl_prcnt: float, b_section: float, e_lux: int, e_external: float, a_area: float, fd_value: float) -> int:
         pass
 
     @abstractmethod

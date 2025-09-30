@@ -18,7 +18,6 @@ class CalculateEValueController:
             e_external_str = body.get("e_external")
             a_area_str = body.get("a_area")
             fd_value_str = body.get("fd_value")
-            cd_value_str = body.get("cd_value")
 
             def tem_mais_de_3_casas_decimais(s_numero):
                 # Verifica se há um ponto decimal na string
@@ -45,8 +44,6 @@ class CalculateEValueController:
                 return BadRequest({"message": "Campo 'a_area' ausente ou inválido."})
             if fd_value_str is None or not tem_mais_de_3_casas_decimais(str(fd_value_str)):
                 return BadRequest({"message": "Campo 'fd_value' ausente ou inválido."})
-            if cd_value_str is None or not tem_mais_de_3_casas_decimais(str(cd_value_str)):
-                return BadRequest({"message": "Campo 'cd_value' ausente ou inválido."})
 
             try:
                 n_value = int(n_value_str)
@@ -55,7 +52,6 @@ class CalculateEValueController:
                 e_external = float(e_external_str)
                 a_area = float(a_area_str)
                 fd_value = float(fd_value_str)
-                cd_value = float(cd_value_str)
 
                 if n_value < 0:
                     return BadRequest({"message": "Campo 'n_value' deve ser um número positivo."})
@@ -69,14 +65,10 @@ class CalculateEValueController:
                     return BadRequest({"message": "Campo 'a_area' deve ser um número positivo."})
                 if fd_value < 0:
                     return BadRequest({"message": "Campo 'fd_value' deve ser um número positivo."})
-                if cd_value < 0:
-                    return BadRequest({"message": "Campo 'cd_value' deve ser um número positivo."})
 
                 if e_external == 0:
                     return InternalServerError({"message": f"Erro interno do servidor: {e}"})
                 if fd_value == 0:
-                    return InternalServerError({"message": f"Erro interno do servidor: {e}"})
-                if cd_value == 0:
                     return InternalServerError({"message": f"Erro interno do servidor: {e}"})
 
                 # Validate ranges
@@ -92,8 +84,6 @@ class CalculateEValueController:
                     return BadRequest({"message": "Campo 'a_area' não deve ser maior que 1000000."})
                 if fd_value > 1000000:
                     return BadRequest({"message": "Campo 'fd_value' não deve ser maior que 1000000."})
-                if cd_value > 3:
-                    return BadRequest({"message": "Campo 'cd_value' deve estar entre 0 e 3."})
 
             except ValueError:
                 return BadRequest(body={"message": "Erro de tipo de dados. Certifique-se de que todos os campos são valores numéricos válidos."})
@@ -105,8 +95,7 @@ class CalculateEValueController:
                 b_section=b_section,
                 e_external=e_external,
                 a_area=a_area,
-                fd_value=fd_value,
-                cd_value=cd_value
+                fd_value=fd_value
             )
 
             # Create the ViewModel with the calculated value

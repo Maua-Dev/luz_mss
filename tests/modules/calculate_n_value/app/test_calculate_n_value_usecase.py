@@ -16,10 +16,9 @@ class TestCalculateNValueUseCase:
         e_external = 20000.0
         a_area = 544.0
         fd_value = 0.7
-        cd_value = 3.0
 
         try:
-            result = get_n_usecase(edl_prcnt=edl_prcnt, b_section=b_section, e_lux=e_lux, e_external=e_external, a_area=a_area, fd_value=fd_value, cd_value=cd_value)
+            result = get_n_usecase(edl_prcnt=edl_prcnt, b_section=b_section, e_lux=e_lux, e_external=e_external, a_area=a_area, fd_value=fd_value)
             print(f"O valor N calculado é: {result}")
 
             assert isinstance(result, float)

@@ -17,7 +17,6 @@ class TestCalculateNValueController:
 
     def test_calculate_n_value_controller_success(self):
         request = HttpRequest(body={
-            'cd_value': 3.0,
             'edl_prcnt': 66.0,
             'b_section': 0.9,
             'e_lux': 200,
@@ -33,7 +32,6 @@ class TestCalculateNValueController:
 
     def test_calculate_n_value_controller_missing_edl_prcnt(self):
         request = HttpRequest(body={
-            'cd_value': 3.0,
             'b_section': 0.9,
             'e_lux': 200,
             'e_external': 20000.0,
@@ -48,7 +46,6 @@ class TestCalculateNValueController:
 
     def test_calculate_n_value_controller_missing_b_section(self):
         request = HttpRequest(body={
-            'cd_value': 3.0,
             'edl_prcnt': 66.0,
             'e_lux': 200,
             'e_external': 20000.0,
@@ -63,7 +60,6 @@ class TestCalculateNValueController:
 
     def test_calculate_n_value_controller_missing_e_lux(self):
         request = HttpRequest(body={
-            'cd_value': 3.0,
             'edl_prcnt': 66.0,
             'b_section': 0.9,
             'e_external': 20000.0,
@@ -78,7 +74,6 @@ class TestCalculateNValueController:
 
     def test_calculate_n_value_controller_missing_e_external(self):
         request = HttpRequest(body={
-            'cd_value': 3.0,
             'edl_prcnt': 66.0,
             'b_section': 0.9,
             'e_lux': 200,
@@ -93,7 +88,6 @@ class TestCalculateNValueController:
 
     def test_calculate_n_value_controller_missing_a_area(self):
         request = HttpRequest(body={
-            'cd_value': 3.0,
             'edl_prcnt': 66.0,
             'b_section': 0.9,
             'e_lux': 200,
@@ -108,7 +102,6 @@ class TestCalculateNValueController:
 
     def test_calculate_n_value_controller_missing_fd_value(self):
         request = HttpRequest(body={
-            'cd_value': 3.0,
             'edl_prcnt': 66.0,
             'b_section': 0.9,
             'e_lux': 200,
@@ -123,7 +116,6 @@ class TestCalculateNValueController:
 
     def test_calculate_n_value_controller_invalid_edl_prcnt_type(self):
         request = HttpRequest(body={
-            'cd_value': 3.0,
             'edl_prcnt': 'invalid',
             'b_section': 0.9,
             'e_lux': 200,
@@ -140,7 +132,6 @@ class TestCalculateNValueController:
     def test_calculate_n_value_controller_invalid_b_section_type(self):
 
         request = HttpRequest(body={
-            'cd_value': 3.0,
             'edl_prcnt': 66.0,
             'b_section': 'invalid',
             'e_lux': 200,
@@ -157,7 +148,6 @@ class TestCalculateNValueController:
 
     def test_calculate_n_value_controller_invalid_e_lux_type(self):
         request = HttpRequest(body={
-            'cd_value': 3.0,
             'edl_prcnt': 66.0,
             'b_section': 0.9,
             'e_lux': 'invalid',
@@ -173,7 +163,6 @@ class TestCalculateNValueController:
 
     def test_calculate_n_value_controller_invalid_e_external_type(self):
         request = HttpRequest(body={
-            'cd_value': 3.0,
             'edl_prcnt': 66.0,
             'b_section': 0.9,
             'e_lux': 200,
@@ -189,7 +178,6 @@ class TestCalculateNValueController:
 
     def test_calculate_n_value_controller_invalid_a_area_type(self):
         request = HttpRequest(body={
-            'cd_value': 3.0,
             'edl_prcnt': 66.0,
             'b_section': 0.9,
             'e_lux': 200,
@@ -205,7 +193,6 @@ class TestCalculateNValueController:
 
     def test_calculate_n_value_controller_invalid_fd_value_type(self):
         request = HttpRequest(body={
-            'cd_value': 3.0,
             'edl_prcnt': 66.0,
             'b_section': 0.9,
             'e_lux': 200,
@@ -221,7 +208,6 @@ class TestCalculateNValueController:
 
     def test_calculate_n_value_controller_invalid_edl_prcnt_value(self):
         request  = HttpRequest(body={
-            'cd_value': 3.0,
             'edl_prcnt': -1.0,
             'b_section': 0.9,
             'e_lux': 200,
@@ -238,7 +224,6 @@ class TestCalculateNValueController:
     def test_calculate_n_value_controller_invalid_b_section_value(self):
 
         request = HttpRequest(body={
-            'cd_value': 3.0,
             'edl_prcnt': 66.0,
             'b_section': -1.0,
             'e_lux': 200,
@@ -255,7 +240,6 @@ class TestCalculateNValueController:
     def test_calculate_n_value_controller_invalid_e_lux_value(self):
         
         request = HttpRequest(body={
-            'cd_value': 3.0,
             'edl_prcnt': 66.0,
             'b_section': 0.9,
             'e_lux': -1,
@@ -272,7 +256,6 @@ class TestCalculateNValueController:
 
     def test_calculate_n_value_controller_invalid_e_external_value(self):
         request = HttpRequest(body = {
-            'cd_value': 3.0,
             'edl_prcnt': 66.0,
             'b_section': 0.9,
             'e_lux': 200,
@@ -288,7 +271,6 @@ class TestCalculateNValueController:
 
     def test_calculate_n_value_controller_invalid_a_area_value(self):
         request = HttpRequest(body={
-            'cd_value': 3.0,
             'edl_prcnt': 66.0,
             'b_section': 0.9,
             'e_lux': 200,
@@ -304,7 +286,6 @@ class TestCalculateNValueController:
 
     def test_calculate_n_value_controller_invalid_fd_value(self):
         request = HttpRequest(body={
-            'cd_value': 3.0,
             'edl_prcnt': 66.0,
             'b_section': 0.9,
             'e_lux': 200,
@@ -320,7 +301,6 @@ class TestCalculateNValueController:
 
     def test_calculate_n_value_controller_internal_server_error(self):
         request = HttpRequest(body={
-            'cd_value': 3.0,
             'edl_prcnt': 66.0,
             'b_section': 0.9,
             'e_lux': 200,
@@ -336,7 +316,6 @@ class TestCalculateNValueController:
 
     def test_calculate_n_value_controller_out_of_range_edl_prcnt_value(self):
         request = HttpRequest(body={
-            'cd_value': 3.0,
             'edl_prcnt': 101.0,
             'b_section': 0.9,
             'e_lux': 200,
@@ -352,7 +331,6 @@ class TestCalculateNValueController:
 
     def test_calculate_n_value_controller_out_of_range_b_section_value(self):
         request = HttpRequest(body={
-            'cd_value': 3.0,
             'edl_prcnt': 66.0,
             'b_section': 10001.0,
             'e_lux': 200,
@@ -368,7 +346,6 @@ class TestCalculateNValueController:
 
     def test_calculate_n_value_controller_out_of_range_e_lux_value(self):
         request = HttpRequest(body={
-            'cd_value': 3.0,
             'edl_prcnt': 66.0,
             'b_section': 0.9,
             'e_lux': 1000001.0,
@@ -384,7 +361,6 @@ class TestCalculateNValueController:
 
     def test_calculate_n_value_controller_out_of_range_e_external_value(self):
         request = HttpRequest(body={
-            'cd_value': 3.0,
             'edl_prcnt': 66.0,
             'b_section': 0.9,
             'e_lux': 200,
@@ -400,7 +376,6 @@ class TestCalculateNValueController:
 
     def test_calculate_n_value_controller_out_of_range_a_area_value(self):
         request = HttpRequest(body={
-            'cd_value': 3.0,
             'edl_prcnt': 66.0,
             'b_section': 0.9,
             'e_lux': 200,
@@ -416,7 +391,6 @@ class TestCalculateNValueController:
 
     def test_calculate_n_value_controller_out_of_range_fd_value(self):
         request = HttpRequest(body={
-            'cd_value': 3.0,
             'edl_prcnt': 66.0,
             'b_section': 0.9,
             'e_lux': 200,
@@ -429,52 +403,3 @@ class TestCalculateNValueController:
         assert isinstance(response, BadRequest)
         assert response.status_code == 400
         assert response.body == {"message": "Campo 'fd_value' não deve ser maior que 1000000."}
-
-    # Testes para campo 'cd_value'
-
-    def test_calculate_e_value_controller_missing_cd_value(self):
-        request = HttpRequest(body={
-            'edl_prcnt': 66.0,
-            'b_section': 0.9,
-            'e_external': 20000.0,
-            'e_lux': 200.0,
-            'a_area': 544.0,
-            'fd_value': 0.7
-        })
-        response = self.controller(request)
-
-        assert isinstance(response, BadRequest)
-        assert response.status_code == 400
-        assert response.body == {"message": "Campo 'cd_value' ausente ou inválido."}
-
-    def test_calculate_e_value_controller_invalid_cd_value(self):
-        request = HttpRequest(body={
-            'cd_value': 'invalid',
-            'edl_prcnt': 66.0,
-            'b_section': 0.9,
-            'e_lux': 200.0,
-            'e_external': 20000.0,
-            'a_area': 544.0,
-            'fd_value': 0.7
-        })
-        response = self.controller(request)
-
-        assert isinstance(response, BadRequest)
-        assert response.status_code == 400
-        assert "Erro de tipo de dados" in response.body['message']
-
-    def test_calculate_e_value_controller_out_of_range_cd_value(self):
-        request = HttpRequest(body={
-            'cd_value': 4.0,
-            'edl_prcnt': 66.0,
-            'b_section': 0.9,
-            'e_lux': 200.0,
-            'e_external': 20000.0,
-            'a_area': 544.0,
-            'fd_value': 0.7
-        })
-        response = self.controller(request)
-
-        assert isinstance(response, BadRequest)
-        assert response.status_code == 400
-        assert "deve estar entre 0 e 3" in response.body['message']

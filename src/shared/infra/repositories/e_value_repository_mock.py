@@ -23,4 +23,4 @@ class EValueRepositoryMock(IEValueRepository):
     def calculate_e_value(self, temp_e_entity: E_Value) -> float:
         if temp_e_entity is None:
             raise ValueError("O objeto E_Value não pode ser None.")
-        return temp_e_entity.calculate_e(temp_e_entity.edl_prcnt, temp_e_entity.e_external, temp_e_entity.b_section, temp_e_entity.fd_value, temp_e_entity.a_area, temp_e_entity.n_value, temp_e_entity.cd_value)
+        return temp_e_entity.calculate_e(temp_e_entity.edl_prcnt, temp_e_entity.e_external, temp_e_entity.b_section, temp_e_entity.fd_value, temp_e_entity.a_area, temp_e_entity.n_value)
