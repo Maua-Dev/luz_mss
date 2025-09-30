@@ -4,7 +4,7 @@ from src.shared.domain.entities.e_value import E_Value
 class IEValueRepository():
 
     @abstractmethod
-    def calculate_e_value(self, n_value: int, edl_prcnt: float, e_external: float, a_area: float, fd_value: float) -> float:
+    def calculate_e_value(self, n_value: int, edl_prcnt: float, e_external: float, a_area: float, fd_value: float, cd_value: float) -> float:
         pass
 
     @abstractmethod

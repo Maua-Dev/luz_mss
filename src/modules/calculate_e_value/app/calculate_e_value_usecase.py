@@ -11,7 +11,8 @@ class CalculateEValueUseCase:
                 b_section: float,
                 e_external: float,
                 a_area: float,
-                fd_value: float
+                fd_value: float,
+                cd_value: float
                  ) -> float:
 
         e_value_entity = E_Value(e_id=str(uuid.uuid4()), 
@@ -20,7 +21,8 @@ class CalculateEValueUseCase:
                                  b_section=b_section,
                                  e_external=e_external,
                                  a_area=a_area,
-                                 fd_value=fd_value)
+                                 fd_value=fd_value,
+                                 cd_value=cd_value)
 
         calculated_value = self._e_value_repo.calculate_e_value(e_value_entity)
         return calculated_value
