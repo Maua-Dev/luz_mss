@@ -33,7 +33,6 @@ jobs:
             echo "Invalid branch name!" && exit 1
           fi
 
-
       - name: Setup AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
