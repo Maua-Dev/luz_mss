@@ -8,10 +8,10 @@ class N_Value():
     e_external: float
     a_area: float
     fd_value: float
-    CD_VALUE: int = 3
+    cd_value: float
     n_id: str
 
-    def __init__ (self, edl_prcnt: float, b_section: float, e_lux: int, e_external: float, a_area: float, fd_value: float, n_id: str = None):
+    def __init__ (self, edl_prcnt: float, b_section: float, e_lux: int, e_external: float, a_area: float, fd_value: float, cd_value: float, n_id: str = None):
         if not self.validate_edl_prcnt(edl_prcnt):
             raise EntityError("edl_prcnt")
         self.edl_prcnt = edl_prcnt
@@ -36,6 +36,10 @@ class N_Value():
             raise EntityError("fd_value")
         self.fd_value = fd_value
 
+        if not self.validate_cd_value(cd_value):
+            raise EntityError("cd_value")
+        self.cd_value = cd_value
+
         if not self.validate_n_id(n_id):
             raise EntityError("n_id")
         self.n_id = n_id
@@ -45,8 +49,6 @@ class N_Value():
         if edl_prcnt is None:
             return False
         elif type(edl_prcnt) != float:
-            return False
-        elif edl_prcnt < 0 or edl_prcnt > 100:
             return False
         return True
     
@@ -88,7 +90,13 @@ class N_Value():
             return False
         elif type(fd_value) != float:
             return False
-        elif fd_value == 0:
+        return True
+
+    @staticmethod
+    def validate_cd_value(cd_value: float) -> bool:
+        if cd_value is None:
+            return False
+        elif type(cd_value) != float:
             return False
         return True
 
@@ -102,12 +110,12 @@ class N_Value():
             return False
         return True
 
-    def calculate_n(self, edl_prcnt: float, b_section: float, e_lux: int, e_external: float, a_area: float, fd_value: float) -> int:
+    def calculate_n(self, edl_prcnt: float, b_section: float, e_lux: int, e_external: float, a_area: float, fd_value: float, cd_value: float) -> int:
         edl_lux = (edl_prcnt * e_external) / 100
         duct = edl_lux * (b_section**2)
 
-        if duct == 0 or self.fd_value == 0:
+        if duct == 0 or fd_value == 0:
             return 0
 
-        n = round((self.e_lux * self.a_area) / (duct * self.CD_VALUE * self.fd_value))
+        n = round((e_lux * a_area) / (duct * cd_value * fd_value))
         return n

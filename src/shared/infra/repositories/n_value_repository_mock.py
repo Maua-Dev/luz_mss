@@ -22,4 +22,4 @@ class NValueRepositoryMock(INValueRepository):
     def calculate_n_value(self, temp_n_entity: N_Value) -> int:
         if temp_n_entity is None:
             raise ValueError("O objeto N_Value não pode ser None.")
-        return temp_n_entity.calculate_n(temp_n_entity.edl_prcnt, temp_n_entity.b_section, temp_n_entity.e_lux, temp_n_entity.e_external, temp_n_entity.a_area, temp_n_entity.fd_value)
+        return temp_n_entity.calculate_n(temp_n_entity.edl_prcnt, temp_n_entity.b_section, temp_n_entity.e_lux, temp_n_entity.e_external, temp_n_entity.a_area, temp_n_entity.fd_value, temp_n_entity.cd_value)
